@@ -4,16 +4,16 @@ import BadgeModal from './components/BadgeModal';
 import UserBadge from '../common/components/UserBadge';
 
 export default function addDiscussionUserBadge() {
-  extend(CommentPost.prototype, 'content', function(list){
+  extend(CommentPost.prototype, 'content', function (list) {
     const userID = this.attrs.post.data.relationships.user.data.id;
     const user = this.attrs.post.store.data.users[userID];
-    
+
     if (!app.forum.attribute('showBadgesInDiscussion') || !user.userBadges) return;
 
     const userBadges = user.userBadges() ?? [];
-    
+
     if (userBadges.length < 1 || !userBadges) return;
-    
+
     const limit = app.forum.attribute('numberOfBadgesOnUserCard');
     let visibleBadges = userBadges.filter((userBadge) => {
       return userBadge.inUserCard();
@@ -37,9 +37,9 @@ export default function addDiscussionUserBadge() {
       );
     });
 
-    if(badges.length>0){
-      list[0].children.push(<div style="height:15px"></div>);
-      for(let i=0;i<badges.length;i++){
+    if (badges.length > 0) {
+      list[0].children.push(<div style="height:13px"></div>);
+      for (let i = 0; i < badges.length; i++) {
         list[0].children.push(badges[i]);
       }
     }
